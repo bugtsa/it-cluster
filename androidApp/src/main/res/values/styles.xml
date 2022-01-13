@@ -1,0 +1,164 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView" />
+
+    <style name="AppTheme.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/black2</item>
+    </style>
+
+    <style name="AppTheme.InputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="errorIconDrawable">@null</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <!--<item name="colorError">@color/red</item>-->
+    </style>
+
+    <style name="ProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/mainButton</item>
+    </style>
+
+    <!-- Material EditText -->
+    <style name="LoginInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginStart">@dimen/default_padding</item>
+        <item name="android:layout_marginEnd">@dimen/default_padding</item>
+        <item name="hintEnabled">true</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="hintTextColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+    </style>
+
+    <style name="InputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintEnabled">true</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="hintTextColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeColor">@color/selector_border_text_input</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="theme">@style/TextInputLayoutAppearance</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/secondaryText</item>
+        <item name="colorControlActivated">@color/mainButtonPressed</item>
+        <item name="colorControlHighlight">@color/buttonBackground</item>
+    </style>
+
+    <style name="LoginFieldStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:minHeight">@dimen/edit_text_min_height</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:minHeight">@dimen/edit_text_min_height</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="EditBigTextStyle">
+        <item name="android:minHeight">@dimen/edit_big_text_min_height</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Text View-->
+    <style name="TextView">
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextView.Small.White">
+        <item name="android:textColor">@color/secondaryText</item>
+    </style>
+
+    <style name="TextView.Small">
+        <item name="android:textColor">@color/mainText</item>
+        <item name="android:textSize">@dimen/default_text_size_small</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextView.Title">
+        <item name="android:textSize">@dimen/default_text_title</item>
+    </style>
+
+    <style name="TextView.Title.YachtBig">
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="TextView.Title.Big">
+        <item name="android:textSize">@dimen/default_text_header</item>
+    </style>
+
+    <style name="TextView.Title.Big.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Button -->
+    <style name="Button" parent="AppTheme.Button"></style>
+
+    <style name="Button.Auth">
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="Button.Light">
+        <item name="backgroundTint">@color/mainButtonDisable</item>
+        <item name="android:textColor">@color/mainButtonActive</item>
+        <item name="android:strokeColor">@color/mainButtonPressed</item>
+        <item name="strokeColor">@color/mainButtonPressed</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="Button.Orange" parent="AppTheme.Button">
+        <item name="backgroundTint">@color/colorAccent</item>
+    </style>
+
+    <style name="Button.Yacht">
+        <item name="backgroundTint">@color/altButton</item>
+        <item name="android:background">@drawable/yacht_corners_all</item>
+        <item name="android:textColor">@color/secondaryText</item>
+    </style>
+
+    <style name="ButtonBorder" parent="Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <style name="AuthErrorTextView">
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:textSize">@dimen/default_text_size_small</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+</resources>

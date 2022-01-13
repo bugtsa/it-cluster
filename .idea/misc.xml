@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="androidApp/src/main/res/drawable/ic_about.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_exit.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_eye_on_password.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_eye_password.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_history.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_orders.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_orders_consideration.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_profile.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/ic_settings.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/show_password_selector.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/yacht_corners.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/yacht_corners_all.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/drawable/yacht_corners_border.xml" value="0.2075" />
+        <entry key="androidApp/src/main/res/font/roboto.xml" value="0.23020833333333332" />
+        <entry key="androidApp/src/main/res/layout/activity_config.xml" value="0.1" />
+        <entry key="androidApp/src/main/res/layout/fragment_auth.xml" value="0.17753623188405798" />
+        <entry key="androidApp/src/main/res/layout/fragment_main_page.xml" value="0.19746376811594202" />
+        <entry key="androidApp/src/main/res/layout/tile_news.xml" value="0.19746376811594202" />
+        <entry key="androidApp/src/main/res/layout/view_loading.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

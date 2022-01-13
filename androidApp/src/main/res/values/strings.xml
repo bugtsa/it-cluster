@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Gym Mind</string>
+
+    <string name="successful">Successful</string>
+    <string name="unsuccessful">Unsuccessful</string>
+    <string name="no_data">No data</string>
+    <string name="loading">Loading</string>
+
+    <string name="launch_year_field">Launch year: %s</string>
+    <string name="mission_name_field">Launch name: %s</string>
+    <string name="launch_success_field">Launch success: %s</string>
+    <string name="details_field">Launch details: %s</string>
+
+    <string name="submit_btn">Submit</string>
+    <string name="token_hint">API token</string>
+    <string name="language_hint">Language code</string>
+    <string name="retry_btn">Retry</string>
+
+    <!-- Menu -->
+    <string name="menu_order">Заказы</string>
+    <string name="menu_order_consideration">Список заказов на рассмотрении</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_profile">Профиль</string>
+    <string name="menu_order_history">История заказов</string>
+    <string name="menu_about">О приложении</string>
+    <string name="menu_exit">Выход</string>
+
+    <string name="title_levels">Levels</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Settings</string>
+
+    <string name="you_level">You level: %s</string>
+
+    <!-- Error -->
+    <string name="error_api_default">Ошибка сервера</string>
+    <string name="error_api_break_date">Проверьте данные!</string>
+    <string name="error_api_token_error">Ошибка токена</string>
+    <string name="error_no_network">Отсутствует подключение к интернету</string>
+    <string name="hint_access_to_network">Поехали, есть подключение к интернету</string>
+    <string name="error_login_or_password">Неправильный логин или пароль.\nПопробуйте ещё раз.</string>
+    <string name="error_unknown">Что-то пошло не так.\nОбратитесь к разработчику приложения.</string>
+
+    <!-- Auth -->
+    <string name="version_prefix">v %s</string>
+    <string name="login_hint">Введите логин</string>
+    <string name="password_hint">Введите пароль</string>
+    <string name="next_button">Далее</string>
+    <string name="support_title">Телефон поддержки:</string>
+    <string name="support_phone_number">+7(342)326-99-00</string>
+
+</resources>
