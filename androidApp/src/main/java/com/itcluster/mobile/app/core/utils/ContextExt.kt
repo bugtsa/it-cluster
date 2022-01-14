@@ -16,8 +16,8 @@ fun Context.getNotGrantedPermissions(list: List<String>) = list.filter {
     ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
 }
 
-fun Context.drawable(@DrawableRes drawable: Int): Drawable? =
-    ContextCompat.getDrawable(this, drawable)
+//fun Context.drawable(@DrawableRes drawable: Int): Drawable? =
+//    ContextCompat.getDrawable(this, drawable)
 
 fun Context.toClipboard(text: String) {
     val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
