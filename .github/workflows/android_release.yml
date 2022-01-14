@@ -22,7 +22,7 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > app/google-services.json
+        run: echo $FIREBASE_CONFIG > androidApp/google-services.json
 
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
@@ -42,13 +42,13 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > app/google-services.json
+        run: echo $FIREBASE_CONFIG > androidApp/google-services.json
 
       # Step 3: Decode App Distributions configuration file
       - name: Decode App Distribution file
         env:
           APP_DISTRIBUTIONS_CONFIG: ${{ sercets.APP_DISTRIBUTIONS_CONFIG }}
-        run: echo $APP_DISTRIBUTIONS_CONFIG > app/casher-bugtsa-app.json
+        run: echo $APP_DISTRIBUTIONS_CONFIG > androidApp/casher-bugtsa-app.json
 
       - name: Install NDK
         run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;20.0.5594570" --sdk_root=${ANDROID_SDK_ROOT}

@@ -25,7 +25,7 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > app/google-services.json
+        run: echo $FIREBASE_CONFIG > androidApp/google-services.json
 
       - name: Unit tests
         run: ./gradlew test --stacktrace
@@ -47,7 +47,7 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > app/google-services.json
+        run: echo $FIREBASE_CONFIG > androidApp/google-services.json
 
       - name: Install NDK
         run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.0.6113669" --sdk_root=${ANDROID_SDK_ROOT}
@@ -59,4 +59,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: androidApp/build/outputs/apk/debug/app-debug.apk
