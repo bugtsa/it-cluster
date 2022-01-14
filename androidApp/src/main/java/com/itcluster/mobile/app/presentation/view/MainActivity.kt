@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view
+package com.itcluster.mobile.app.presentation.view
 
 import android.content.Context
 import android.os.Bundle
@@ -17,14 +17,16 @@ import com.itcluster.mobile.app.core.utils.viewBinding
 import com.itcluster.mobile.app.databinding.ActivityRootBinding
 import com.itcluster.mobile.app.models.IncomingMessage
 import com.itcluster.mobile.app.models.ResponsePayload
-import com.itcluster.mobile.app.view.base.BaseActivity
+import com.itcluster.mobile.app.presentation.view.base.BaseActivity
 import com.itcluster.mobile.kmm.shared.GymMindSDK
 import com.itcluster.mobile.kmm.shared.cache.DatabaseDriverFactory
 import com.itcluster.mobile.kmm.shared.network.AppSocket
 import com.fasterxml.jackson.databind.ObjectMapper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
     private val mainScope = MainScope()
 

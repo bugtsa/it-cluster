@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view
+package com.itcluster.mobile.app.presentation.screens
 
 import android.os.Bundle
 import android.view.View
@@ -11,26 +11,32 @@ import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
 import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.databinding.FragmentMainPageBinding
+import com.itcluster.mobile.feature.list.di.MainPageFactory
 import com.itcluster.mobile.feature.list.presentation.MainPageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.livedata.addCloseableObserver
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_main_page
     override val viewModelVariableId: Int = BR.viewModel
     override val viewModelClass = MainPageViewModel::class.java
 
-    override fun viewModelFactory(): ViewModelProvider.Factory {
-        return createViewModelFactory { MainPageViewModel().apply { onCreated() } }
-    }
+    @Inject
+    lateinit var factory: MainPageFactory
+
+    override fun viewModelFactory(): ViewModelProvider.Factory =
+        createViewModelFactory { factory.createMainPageModel().apply { onCreated() } }
 
     private val progressBarView: ProgressBar by lazy { requireView().findViewById(R.id.progressBar) }
     private val authText: TextView by lazy { requireView().findViewById(R.id.auth) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.auth.addCloseableObserver { authString ->
-            authText.text = authString
+        viewModel.isSuccess.addCloseableObserver { accessToken ->
+            authText.text = accessToken
             progressBarView.isVisible = false
         }
     }

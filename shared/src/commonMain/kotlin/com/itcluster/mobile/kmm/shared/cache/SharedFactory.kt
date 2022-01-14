@@ -14,7 +14,10 @@ import com.itcluster.mobile.domain.entity.News
 import com.itcluster.mobile.feature.config.di.ConfigFactory
 import com.itcluster.mobile.feature.config.model.ConfigStore
 import com.itcluster.mobile.feature.config.presentation.ConfigViewModel
+import com.itcluster.mobile.feature.list.di.AuthFactory
 import com.itcluster.mobile.feature.list.di.ListFactory
+import com.itcluster.mobile.feature.list.di.MainPageFactory
+import com.itcluster.mobile.feature.list.model.AuthStore
 import com.itcluster.mobile.feature.list.model.ListSource
 import com.itcluster.mobile.feature.list.presentation.ListViewModel
 import dev.icerock.moko.resources.desc.desc
@@ -44,6 +47,40 @@ class SharedFactory(
         settings = settings,
         baseUrl = baseUrl,
         httpClientEngine = httpClientEngine
+    )
+
+    val authStore = object : AuthStore {
+        override var accessToken: String?
+            get() = domainFactory.authRepository.accessToken
+            set(value) {
+                domainFactory.authRepository.accessToken = value
+            }
+
+        override var tokenType: String?
+            get() = domainFactory.authRepository.tokenType
+            set(value) {
+                domainFactory.authRepository.tokenType = value
+            }
+
+        override var expire: Int?
+            get() = domainFactory.authRepository.expireToken
+            set(value) {
+                domainFactory.authRepository.expireToken = value
+            }
+
+        override var refreshToken: String?
+            get() = domainFactory.authRepository.refreshToken
+            set(value) {
+                domainFactory.authRepository.refreshToken = value
+            }
+    }
+
+    val authFactory = AuthFactory(
+        authStore = authStore
+    )
+
+    val mainPageFactory: MainPageFactory = MainPageFactory(
+        authStore = authStore
     )
 
     val newsFactory: ListFactory<News> = ListFactory(

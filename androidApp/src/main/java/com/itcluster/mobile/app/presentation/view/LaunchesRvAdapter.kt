@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view
+package com.itcluster.mobile.app.presentation.view
 
 import android.view.LayoutInflater
 import android.view.View

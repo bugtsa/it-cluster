@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view.base
+package com.itcluster.mobile.app.presentation.view.base
 
 import android.os.Bundle
 import androidx.navigation.NavDirections

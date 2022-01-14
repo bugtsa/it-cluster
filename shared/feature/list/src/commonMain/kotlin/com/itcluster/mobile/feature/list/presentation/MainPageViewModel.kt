@@ -2,6 +2,7 @@ package com.itcluster.mobile.feature.list.presentation
 
 import com.itcluster.mobile.domain.network.ItClusterSDK
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
+import com.itcluster.mobile.feature.list.model.AuthStore
 import dev.icerock.moko.mvvm.livedata.*
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.StringResource
@@ -10,7 +11,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class MainPageViewModel(
-//    private val listSource: ListSource<T>,
+    private val authStore: AuthStore
 //    private val strings: Strings,
 //    private val unitsFactory: UnitsFactory<T>
 ) : ViewModel() {
@@ -20,10 +21,10 @@ class MainPageViewModel(
     private val mainScope = MainScope()
 
     val counter: LiveData<String> get() = _counter.map { it.toString() }
-    val auth: LiveData<String> get() = _authString
+    val isSuccess: LiveData<String> get() = _isSuccess
 
     private val _counter: MutableLiveData<Int> = MutableLiveData(0)
-    private val _authString: MutableLiveData<String> = MutableLiveData("")
+    private val _isSuccess: MutableLiveData<String> = MutableLiveData("")
 
 
 //    private val _state: MutableLiveData<ResourceState<List<T>, Throwable>> =
@@ -46,11 +47,9 @@ class MainPageViewModel(
     }
 
     fun onCreated() {
-        requestAuth(LoginReq(
-            "bugtsa@gmail.com",
-            "qlSilence75",
-            "96"
-        ))
+        authStore.accessToken?.also {
+            _isSuccess.value = it
+        }
     }
 //
 //    fun onRetryPressed() {
@@ -86,18 +85,6 @@ class MainPageViewModel(
 //            }
 //        }
 //    }
-
-    private fun requestAuth(req: LoginReq) {
-        mainScope.launch {
-            kotlin.runCatching {
-                sdk.requestAuth(req)
-            }.onSuccess { authRes ->
-                _authString.value = authRes.toString()
-            }.onFailure {
-                _authString.value = it.toString()
-            }
-        }
-    }
 
     interface UnitsFactory<T> {
         fun createTile(data: T): TableUnitItem

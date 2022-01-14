@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view.base
+package com.itcluster.mobile.app.presentation.view.base
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

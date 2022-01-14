@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.view.loading
+package com.itcluster.mobile.app.presentation.view.loading
 
 import android.content.Context
 import android.graphics.Color

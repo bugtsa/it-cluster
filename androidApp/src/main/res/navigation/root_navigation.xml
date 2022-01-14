@@ -2,20 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_navigation"
-    app:startDestination="@+id/nested_yacht">
+    app:startDestination="@+id/nested_base">
 
     <navigation
-        android:id="@+id/nested_yacht"
-        app:startDestination="@+id/nav_client_enter">
+        android:id="@+id/nested_base"
+        app:startDestination="@+id/nav_auth">
 
         <fragment
-            android:id="@+id/nav_client_enter"
-            android:name="com.itcluster.mobile.app.view.MainPageFragment"
-            android:label="Для yacht sharing" />
+            android:id="@+id/nav_auth"
+            android:name="com.itcluster.mobile.app.presentation.screens.AuthFragment"
+            android:label="Auth Page" />
+
+        <fragment
+            android:id="@+id/nav_main"
+            android:name="com.itcluster.mobile.app.presentation.screens.MainPageFragment"
+            android:label="Main Page" />
 
         <action
-            android:id="@+id/action_to_client_yacht"
-            app:destination="@id/nav_client_enter" />
+            android:id="@+id/action_to_main"
+            app:destination="@id/nav_main" />
 
     </navigation>
 
