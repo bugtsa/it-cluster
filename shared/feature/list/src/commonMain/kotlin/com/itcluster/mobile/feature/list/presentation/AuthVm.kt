@@ -1,7 +1,10 @@
 package com.itcluster.mobile.feature.list.presentation
 
 import com.itcluster.mobile.domain.network.ItClusterSDK
+import com.itcluster.mobile.domain.network.api.errors.AuthErrorDto
+import com.itcluster.mobile.domain.network.api.errors.ClusterException
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
+import com.itcluster.mobile.feature.list.model.AuthState
 import com.itcluster.mobile.feature.list.model.AuthStore
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
@@ -17,9 +20,9 @@ class AuthVm(
 
     private val mainScope = MainScope()
 
-    val auth: LiveData<String> get() = _authString
+    val auth: LiveData<AuthState> get() = _authString
 
-    private val _authString: MutableLiveData<String> = MutableLiveData("")
+    private val _authString: MutableLiveData<AuthState> = MutableLiveData(AuthState.NoAction)
 
     fun onCreated() {}
 
@@ -39,9 +42,15 @@ class AuthVm(
                     expire = authRes.expire
                     refreshToken = authRes.refresh_token
                 }
-                _authString.value = authRes.toString()
-            }.onFailure {
-                _authString.value = it.toString()
+                _authString.value = AuthState.Success(authRes.toString())
+            }.onFailure { throwable ->
+                _authString.value =
+                    (throwable as? ClusterException)?.let { cluster ->
+                        when (val typeMessage = cluster.error.message) {
+                            is AuthErrorDto.Login -> AuthState.Error.Login(typeMessage.message)
+                            is AuthErrorDto.Password -> AuthState.Error.Password(typeMessage.message)
+                        }
+                    } ?: AuthState.Error.Unknown("Неизвестная ошибка. Обратитесь к разработчику")
             }
         }
     }
