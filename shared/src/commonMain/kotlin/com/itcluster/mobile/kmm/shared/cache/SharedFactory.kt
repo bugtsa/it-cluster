@@ -15,11 +15,14 @@ import com.itcluster.mobile.feature.config.di.ConfigFactory
 import com.itcluster.mobile.feature.config.model.ConfigStore
 import com.itcluster.mobile.feature.config.presentation.ConfigViewModel
 import com.itcluster.mobile.feature.list.di.AuthFactory
+import com.itcluster.mobile.feature.list.di.CompaniesFactory
 import com.itcluster.mobile.feature.list.di.ListFactory
 import com.itcluster.mobile.feature.list.di.MainPageFactory
 import com.itcluster.mobile.feature.list.model.AuthStore
+import com.itcluster.mobile.feature.list.model.CompaniesStore
 import com.itcluster.mobile.feature.list.model.ListSource
 import com.itcluster.mobile.feature.list.presentation.ListViewModel
+import com.itcluster.mobile.presentation.models.CompanyModel
 import dev.icerock.moko.resources.desc.desc
 
 class SharedFactory(
@@ -49,7 +52,7 @@ class SharedFactory(
         httpClientEngine = httpClientEngine
     )
 
-    val authStore = object : AuthStore {
+    private val authStore = object : AuthStore {
         override var accessToken: String?
             get() = domainFactory.authRepository.accessToken
             set(value) {
@@ -75,9 +78,27 @@ class SharedFactory(
             }
     }
 
-    val authFactory = AuthFactory(
-        authStore = authStore
-    )
+    private val companiesStore = object : CompaniesStore {
+        override var login: String
+            get() = domainFactory.companiesRepository.login
+            set(value) {
+                domainFactory.companiesRepository.login = value
+            }
+        override var password: String
+            get() = domainFactory.companiesRepository.password
+            set(value) {
+                domainFactory.companiesRepository.password = value
+            }
+        override var companies: MutableList<CompanyModel>
+            get() = domainFactory.companiesRepository.companies
+            set(value) {
+                domainFactory.companiesRepository.companies.addAll(value)
+            }
+    }
+
+    val authFactory = AuthFactory(companiesStore)
+
+    val companiesFactory = CompaniesFactory(companiesStore, authStore)
 
     val mainPageFactory: MainPageFactory = MainPageFactory(
         authStore = authStore

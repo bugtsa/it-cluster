@@ -5,6 +5,7 @@ import com.itcluster.mobile.domain.network.api.errors.ErrorBaseRes
 import com.itcluster.mobile.domain.network.api.errors.ErrorClusterDto.Companion.toDto
 import com.itcluster.mobile.domain.network.api.errors.MessageErrorRes
 import com.itcluster.mobile.domain.network.models.auth.AuthRes
+import com.itcluster.mobile.domain.network.models.auth.CompaniesRes
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
 import io.ktor.client.HttpClient
 import io.ktor.client.features.*
@@ -49,19 +50,31 @@ class ItClusterApi {
         }
     }
 
-    suspend fun postAuth(req: LoginReq): AuthRes = httpClient.post {
-        url("$IT_CLUSTER_ENDPOINT$AUTH_LOGIN")
+    suspend fun authToken(req: LoginReq): AuthRes = httpClient.post {
+        url("$IT_CLUSTER_ENDPOINT$AUTH_TOKEN")
         body = FormDataContent(Parameters.build {
-            append("login", req.login)
-            append("password", req.password)
-            append("company_id", req.company_id)
+            append(LOGIN_PARAM, req.login)
+            append(PASSWORD_PARAM, req.password)
+            append("company_id", req.company_id.toString())
+        })
+    }
+
+    suspend fun companiesList(req: LoginReq): CompaniesRes = httpClient.post {
+        url("$IT_CLUSTER_ENDPOINT$COMPANIES_LIST")
+        body = FormDataContent(Parameters.build {
+            append(LOGIN_PARAM, req.login)
+            append(PASSWORD_PARAM, req.password)
         })
     }
 
     companion object {
         private const val IT_CLUSTER_ENDPOINT = "https://api.qualitylive.su/v1/"
 
-        private const val AUTH_LOGIN = "auth/login"
+        private const val COMPANIES_LIST = "auth/login-first"
+        private const val AUTH_TOKEN = "auth/login"
+
+        private const val LOGIN_PARAM = "login"
+        private const val PASSWORD_PARAM = "password"
     }
 }
 

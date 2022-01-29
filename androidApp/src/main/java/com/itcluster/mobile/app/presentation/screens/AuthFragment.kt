@@ -14,7 +14,7 @@ import com.itcluster.mobile.app.ext.setSafeOnClickListener
 import com.itcluster.mobile.app.presentation.view.MainActivity
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
 import com.itcluster.mobile.feature.list.di.AuthFactory
-import com.itcluster.mobile.feature.list.model.AuthState
+import com.itcluster.mobile.feature.list.model.state.LoginState
 import com.itcluster.mobile.feature.list.presentation.AuthVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
@@ -40,22 +40,22 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadingView.isVisible = false
-        viewModel.auth.addCloseableObserver { authState ->
-            when (authState) {
-                is AuthState.Success -> {
+        viewModel.auth.addCloseableObserver { loginState ->
+            when (loginState) {
+                is LoginState.LoginFirst.Companies -> {
                     loadingView.isVisible = false
-                    (activity as MainActivity).navController.navigate(R.id.action_to_main)
+                    (activity as MainActivity).navController.navigate(R.id.action_to_companies)
                 }
-                is AuthState.Error -> {
+                is LoginState.Error -> {
                     loadingView.isVisible = false
-                    when (authState) {
-                        is AuthState.Error.Login -> binding.tilLogin.error = authState.message
-                        is AuthState.Error.Password -> binding.tilPassword.error = authState.message
-                        is AuthState.Error.Unknown -> showToast(authState.message)
+                    when (loginState) {
+                        is LoginState.Error.Login -> binding.tilLogin.error = loginState.message
+                        is LoginState.Error.Password -> binding.tilPassword.error = loginState.message
+                        is LoginState.Error.Unknown -> showToast(loginState.message)
                     }
 
                 }
-                AuthState.NoAction -> {}
+                else -> {}
             }
         }
 
@@ -71,7 +71,7 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
                 tilPassword.error = EMPTY_SEPARATOR
                 loadingView.isVisible = true
                 hideKeyboard()
-                viewModel?.requestAuth(etLogin.text.toString(), etPassword.text.toString())
+                viewModel?.companiesListRequest(etLogin.text.toString(), etPassword.text.toString())
             }
             checkAuthButtonEnable()
         }

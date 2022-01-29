@@ -41,8 +41,6 @@ class MainActivity : BaseActivity() {
         AppSocket(SOCKET_ENDPOINT)
     )
 
-    private val launchesRvAdapter = LaunchesRvAdapter(listOf())
-
     private val objectMapper = ObjectMapper()
 
     private val jsonGreering = "{\n" +
