@@ -7,5 +7,5 @@ data class CompanyListItem(
 
 	val image: String,
 	val name: String,
-	val id: String
+	val id: Long
 )

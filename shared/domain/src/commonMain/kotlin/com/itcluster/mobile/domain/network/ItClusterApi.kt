@@ -55,7 +55,7 @@ class ItClusterApi {
         body = FormDataContent(Parameters.build {
             append(LOGIN_PARAM, req.login)
             append(PASSWORD_PARAM, req.password)
-            append("company_id", req.company_id)
+            append("company_id", req.company_id.toString())
         })
     }
 

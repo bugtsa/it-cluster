@@ -30,7 +30,7 @@ class CompaniesVm(
         _state.value = LoginState.Companies.Data(companiesStore.companies)
     }
 
-    fun authTokenRequest(companyId: String) {
+    fun authTokenRequest(companyId: Long) {
         val req = LoginReq(
             companiesStore.login,
             companiesStore.password,

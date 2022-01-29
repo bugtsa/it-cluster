@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.R
 import com.itcluster.mobile.app.databinding.FragmentCompaniesBinding
-import com.itcluster.mobile.app.presentation.view.CompaniesRvAdapter
+import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
+import com.itcluster.mobile.app.models.CompanyState
+import com.itcluster.mobile.app.models.CompanyState.Companion.toState
+import com.itcluster.mobile.app.presentation.view.CompanyAdapterDelegates
 import com.itcluster.mobile.app.presentation.view.MainActivity
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
 import com.itcluster.mobile.feature.list.di.CompaniesFactory
 import com.itcluster.mobile.feature.list.model.state.LoginState
 import com.itcluster.mobile.feature.list.presentation.CompaniesVm
-import com.itcluster.mobile.presentation.models.CompanyModel
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -35,9 +37,7 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
     @Inject
     lateinit var factory: CompaniesFactory
 
-//    private val adapter by lazy { createAdapter() }
-
-    private val companiesRvAdapter = CompaniesRvAdapter(listOf())
+    private val adapter by lazy { createAdapter() }
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
         createViewModelFactory { factory.createCompaniesViewModel() }
@@ -53,7 +53,7 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
                 }
                 is LoginState.Companies.Data -> {
                     loadingView.isVisible = false
-                    fillDataAdapter(companiesState.companies)
+                    fillDataAdapter(companiesState.companies.map { it.toState() })
                 }
                 is LoginState.Error -> {
                     loadingView.isVisible = false
@@ -70,26 +70,31 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
         }
 
         setupViews()
-
     }
 
 
     private fun setupViews() {
-        with(binding) {
-            companies.adapter = companiesRvAdapter
-            companies.layoutManager = LinearLayoutManager(requireContext())
+        binding.companies.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@CompaniesFragment.adapter
         }
     }
 
-    private fun createAdapter() {
-//        viewModel.authTokenRequest()
+    private fun createAdapter() = BaseDelegationAdapter(
+        CompanyAdapterDelegates.companyAdapterDelegate(
+            ::navToMainPage
+        )
+    )
 
+    private fun navToMainPage(companyId: Long) {
+        loadingView.isVisible = true
+        viewModel.authTokenRequest(companyId)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun fillDataAdapter(companies: List<CompanyModel>) {
-        companiesRvAdapter.companies = companies
-        companiesRvAdapter.notifyDataSetChanged()
+    private fun fillDataAdapter(companies: List<CompanyState>) {
+        adapter.items = companies
+        adapter.notifyDataSetChanged()
     }
 
     private fun showToast(message: String?) {

@@ -13,6 +13,7 @@ dependencies {
     val navigationVersion: String by project
     val lifecycleVersion = "2.3.1"
     val fragmentsKtxVersion = "1.3.4"
+    val adapterDelegatesVersion = "4.3.0"
 
 
     implementation(project(":shared"))
@@ -38,6 +39,10 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    // Adapter Delegates https://github.com/sockeqwe/AdapterDelegates
+    implementation("com.hannesdorfmann:adapterdelegates4:$adapterDelegatesVersion")
+    implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterDelegatesVersion")
 
     // Hilt
     implementation(libs.hilt)

@@ -5,10 +5,8 @@
     <string name="no_data">No data</string>
     <string name="loading">Загрузка</string>
 
-    <string name="launch_year_field">Launch year: %s</string>
-    <string name="mission_name_field">Launch name: %s</string>
-    <string name="launch_success_field">Launch success: %s</string>
-    <string name="details_field">Launch details: %s</string>
+    <string name="company_title_field">Название: %s</string>
+    <string name="company_image_field">Картинка: %s</string>
 
     <string name="submit_btn">Submit</string>
     <string name="token_hint">API token</string>
@@ -46,5 +44,7 @@
     <string name="next_button">Далее</string>
     <string name="support_title">Телефон поддержки:</string>
     <string name="support_phone_number">+7(342)326-99-00</string>
+
+    <string name="companies_selection">Selection one companies</string>
 
 </resources>
