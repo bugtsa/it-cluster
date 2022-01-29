@@ -1,6 +1,7 @@
 package com.itcluster.mobile.domain.di
 
 import com.itcluster.mobile.domain.repository.AuthRepository
+import com.itcluster.mobile.domain.repository.CompaniesRepository
 import io.github.aakira.napier.Napier
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.network.exceptionfactory.HttpExceptionFactory
@@ -92,5 +93,9 @@ class DomainFactory(
 
     val authRepository: AuthRepository by lazy {
         AuthRepository(keyValueStorage = keyValueStorage)
+    }
+
+    val companiesRepository: CompaniesRepository by lazy {
+        CompaniesRepository()
     }
 }

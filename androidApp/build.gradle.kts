@@ -5,6 +5,7 @@ plugins {
     id("dev.icerock.mobile.multiplatform-units")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 dependencies {
@@ -20,7 +21,7 @@ dependencies {
     implementation(libs.recyclerView)
     implementation(libs.swipeRefreshLayout)
     implementation(libs.mokoMvvmDataBinding)
-    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.cardview:cardview:1.0.0")
 
     // Navigation
@@ -32,7 +33,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
     implementation( "androidx.fragment:fragment-ktx:$fragmentsKtxVersion")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
     implementation("androidx.core:core-ktx:1.3.1")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
