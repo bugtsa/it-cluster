@@ -16,7 +16,8 @@ sealed class LoginState {
         ) : Error()
 
         class Unknown(
-            val message: String
+            val message: String,
+            val throwable: Throwable
         ) : Error()
     }
 

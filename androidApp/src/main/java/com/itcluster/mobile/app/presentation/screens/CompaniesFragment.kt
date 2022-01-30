@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.R
 import com.itcluster.mobile.app.databinding.FragmentCompaniesBinding
+import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.CompanyState
 import com.itcluster.mobile.app.models.CompanyState.Companion.toState
@@ -58,7 +59,10 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
                 is LoginState.Error -> {
                     loadingView.isVisible = false
                     when (companiesState) {
-                        is LoginState.Error.Unknown -> showToast(companiesState.message)
+                        is LoginState.Error.Unknown -> {
+                            LogSniffer.addLog(TAG + companiesState.throwable.toString())
+                            showToast(companiesState.message)
+                        }
                         else -> {
 
                         }
@@ -105,6 +109,6 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
 
     companion object {
 
-
+        private const val TAG = "CompaniesFragment: "
     }
 }

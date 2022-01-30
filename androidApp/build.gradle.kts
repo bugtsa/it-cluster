@@ -14,6 +14,7 @@ dependencies {
     val lifecycleVersion = "2.3.1"
     val fragmentsKtxVersion = "1.3.4"
     val adapterDelegatesVersion = "4.3.0"
+    val kotlinVersion = "1.5.31"
 
 
     implementation(project(":shared"))
@@ -35,6 +36,7 @@ dependencies {
     implementation( "androidx.fragment:fragment-ktx:$fragmentsKtxVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation( "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("androidx.core:core-ktx:1.3.1")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
@@ -43,6 +45,8 @@ dependencies {
     // Adapter Delegates https://github.com/sockeqwe/AdapterDelegates
     implementation("com.hannesdorfmann:adapterdelegates4:$adapterDelegatesVersion")
     implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterDelegatesVersion")
+
+    implementation("com.squareup.okio:okio:2.10.0")
 
     // Hilt
     implementation(libs.hilt)
@@ -62,6 +66,7 @@ android {
 
         val url = "https://newsapi.org/v2/"
         buildConfigField("String", "BASE_URL", "\"$url\"")
+        buildConfigField( "long", "SEND_AS_LOG_FILE_SIZE", "2097152")
     }
     buildTypes {
         getByName("release") {

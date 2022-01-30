@@ -10,6 +10,7 @@ import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.R
 import com.itcluster.mobile.app.databinding.FragmentAuthBinding
 import com.itcluster.mobile.app.ext.hideKeyboard
+import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.setSafeOnClickListener
 import com.itcluster.mobile.app.presentation.view.MainActivity
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
@@ -51,7 +52,10 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
                     when (loginState) {
                         is LoginState.Error.Login -> binding.tilLogin.error = loginState.message
                         is LoginState.Error.Password -> binding.tilPassword.error = loginState.message
-                        is LoginState.Error.Unknown -> showToast(loginState.message)
+                        is LoginState.Error.Unknown -> {
+                            LogSniffer.addLog(TAG + loginState.throwable.toString())
+                            showToast(loginState.message)
+                        }
                     }
 
                 }
@@ -92,6 +96,8 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     companion object {
         private const val EMPTY_SEPARATOR = ""
+
+        private const val TAG = "AuthFragment: "
     }
 
 }
