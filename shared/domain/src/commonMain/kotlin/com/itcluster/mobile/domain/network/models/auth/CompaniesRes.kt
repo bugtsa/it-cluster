@@ -1,5 +1,6 @@
 package com.itcluster.mobile.domain.network.models.auth
 
+import com.itcluster.mobile.domain.Constants.Companion.EMPTY_SEPARATOR
 import com.itcluster.mobile.presentation.models.CompanyModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -19,7 +20,7 @@ data class CompaniesRes(
 		fun CompaniesRes.toModel(): List<CompanyModel> =
 			companyList.map { item ->
 				CompanyModel(
-					item.image,
+					item.image ?: EMPTY_SEPARATOR,
 					item.name,
 					item.id
 				)
