@@ -54,7 +54,10 @@ class CompaniesVm(
                             is AuthErrorDto.Login -> LoginState.Error.Login(typeMessage.message)
                             is AuthErrorDto.Password -> LoginState.Error.Password(typeMessage.message)
                         }
-                    } ?: LoginState.Error.Unknown("Неизвестная ошибка. Обратитесь к разработчику")
+                    } ?: LoginState.Error.Unknown(
+                        "Неизвестная ошибка. Обратитесь к разработчику",
+                        throwable
+                    )
             }
         }
     }

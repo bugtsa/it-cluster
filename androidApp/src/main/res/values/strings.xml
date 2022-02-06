@@ -9,6 +9,7 @@
 
     <string name="company_title_field">Title: %s</string>
     <string name="company_image_field">Image: %s</string>
+    <string name="wallet_amount_field">Amount: %s</string>
 
     <string name="submit_btn">Submit</string>
     <string name="token_hint">API token</string>

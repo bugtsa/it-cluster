@@ -7,6 +7,7 @@ import com.itcluster.mobile.domain.network.api.errors.MessageErrorRes
 import com.itcluster.mobile.domain.network.models.auth.AuthRes
 import com.itcluster.mobile.domain.network.models.auth.CompaniesRes
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
+import com.itcluster.mobile.domain.network.models.wallet.WalletRes
 import io.ktor.client.HttpClient
 import io.ktor.client.features.*
 import io.ktor.client.features.json.JsonFeature
@@ -67,11 +68,20 @@ class ItClusterApi {
         })
     }
 
+    suspend fun walletList(authToken: String): List<WalletRes> = httpClient.get{
+        url("$IT_CLUSTER_ENDPOINT$WALLET_LIST")
+        header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
+    }
+
     companion object {
         private const val IT_CLUSTER_ENDPOINT = "https://api.qualitylive.su/v1/"
 
         private const val COMPANIES_LIST = "auth/login-first"
         private const val AUTH_TOKEN = "auth/login"
+
+        private const val WALLET_LIST = "wallet/list"
+        private const val AUTHORIZATION_HEADER = "Authorization"
+        private const val BEARER_PREFIX = "Bearer"
 
         private const val LOGIN_PARAM = "login"
         private const val PASSWORD_PARAM = "password"

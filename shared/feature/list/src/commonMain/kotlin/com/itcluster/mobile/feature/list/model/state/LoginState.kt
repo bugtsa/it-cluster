@@ -16,8 +16,16 @@ sealed class LoginState {
         ) : Error()
 
         class Unknown(
-            val message: String
+            val message: String,
+            val throwable: Throwable
         ) : Error()
+    }
+
+    sealed class Authorized : LoginState() {
+
+        object UnAuthorized: LoginState()
+
+        object SuccessAuthorized: LoginState()
     }
 
     sealed class LoginFirst : LoginState() {

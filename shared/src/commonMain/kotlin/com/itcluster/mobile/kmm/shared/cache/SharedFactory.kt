@@ -96,7 +96,7 @@ class SharedFactory(
             }
     }
 
-    val authFactory = AuthFactory(companiesStore)
+    val authFactory = AuthFactory(authStore, companiesStore)
 
     val companiesFactory = CompaniesFactory(companiesStore, authStore)
 

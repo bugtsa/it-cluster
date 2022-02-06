@@ -1,6 +1,8 @@
 package com.itcluster.mobile.app.presentation.screens
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.*
@@ -10,6 +12,7 @@ import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.R
 import com.itcluster.mobile.app.databinding.FragmentAuthBinding
 import com.itcluster.mobile.app.ext.hideKeyboard
+import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.setSafeOnClickListener
 import com.itcluster.mobile.app.presentation.view.MainActivity
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
@@ -31,6 +34,8 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     private val loadingView: LoadingView by lazy { requireView().findViewById(R.id.loading) }
 
+    private val handler = Handler(Looper.getMainLooper())
+
     @Inject
     lateinit var factory: AuthFactory
 
@@ -39,9 +44,15 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadingView.isVisible = false
+        loadingView.isVisible = true
         viewModel.auth.addCloseableObserver { loginState ->
             when (loginState) {
+                is LoginState.Authorized.UnAuthorized -> bindUnAuthorizedState()
+                is LoginState.Authorized.SuccessAuthorized -> {
+                    handler.post {
+                        (activity as MainActivity).navController.navigate(R.id.action_to_main)
+                    }
+                }
                 is LoginState.LoginFirst.Companies -> {
                     loadingView.isVisible = false
                     (activity as MainActivity).navController.navigate(R.id.action_to_companies)
@@ -51,7 +62,10 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
                     when (loginState) {
                         is LoginState.Error.Login -> binding.tilLogin.error = loginState.message
                         is LoginState.Error.Password -> binding.tilPassword.error = loginState.message
-                        is LoginState.Error.Unknown -> showToast(loginState.message)
+                        is LoginState.Error.Unknown -> {
+                            LogSniffer.addLog(TAG + loginState.throwable.toString())
+                            showToast(loginState.message)
+                        }
                     }
 
                 }
@@ -59,7 +73,12 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
             }
         }
 
+    }
+
+    private fun bindUnAuthorizedState() {
+        loadingView.isVisible = false
         with(binding) {
+            scrollableView.isVisible = true
             etPassword.doOnTextChanged { _, _, _, _ ->
                 checkAuthButtonEnable()
             }
@@ -92,6 +111,8 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     companion object {
         private const val EMPTY_SEPARATOR = ""
+
+        private const val TAG = "AuthFragment: "
     }
 
 }

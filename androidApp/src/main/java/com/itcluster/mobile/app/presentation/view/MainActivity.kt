@@ -1,11 +1,14 @@
 package com.itcluster.mobile.app.presentation.view
 
+import android.Manifest
 import android.content.Context
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LifecycleOwner
@@ -22,6 +25,8 @@ import com.itcluster.mobile.kmm.shared.GymMindSDK
 import com.itcluster.mobile.kmm.shared.cache.DatabaseDriverFactory
 import com.itcluster.mobile.kmm.shared.network.AppSocket
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.itcluster.mobile.app.ext.log.LogSniffer
+import com.itcluster.mobile.app.ext.shakedetector.ShakeDetector
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -39,6 +44,13 @@ class MainActivity : BaseActivity() {
     private val sdk = GymMindSDK(
         DatabaseDriverFactory(this),
         AppSocket(SOCKET_ENDPOINT)
+    )
+
+    private var shakeDetector: ShakeDetector? = null
+
+    private val storagePermissionResult = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+        ::onPermissionResult
     )
 
     private val objectMapper = ObjectMapper()
@@ -67,19 +79,27 @@ class MainActivity : BaseActivity() {
             }
             true
         }
-//        launchesRecyclerView = findViewById(R.id.launchesListRv)
-//        progressBarView = findViewById(R.id.progressBar)
-//        swipeRefreshLayout = findViewById(R.id.swipeContainer)
-//
-//        launchesRecyclerView.adapter = launchesRvAdapter
-//        launchesRecyclerView.layoutManager = LinearLayoutManager(this)
-//
+
+        shakeDetector = ShakeDetector(getSystemService(SENSOR_SERVICE) as SensorManager) {
+            requestWriteStoragePermissions()
+        }
+//        }
 //        swipeRefreshLayout.setOnRefreshListener {
 //            swipeRefreshLayout.isRefreshing = false
 //            displayLaunches(true)
 //        }
 //        displayLaunches(false)
 //        showGameState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shakeDetector?.registerListener()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shakeDetector?.unregisterListener()
     }
 
     override fun onDestroy() {
@@ -99,6 +119,24 @@ class MainActivity : BaseActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun requestWriteStoragePermissions() {
+        storagePermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+
+    private fun onPermissionResult(isGranted: Boolean) {
+        if (isGranted) {
+            performSendLogs()
+        } else {
+            showToast("Дайте разрешения на запись файла, чтобы его отправить")
+        }
+    }
+
+    private fun performSendLogs() {
+        LogSniffer.apply {
+            sendLogs(this@MainActivity)
         }
     }
 
@@ -145,7 +183,12 @@ class MainActivity : BaseActivity() {
 
         appSocket.messageListener = { payload ->
             val response = try {
-                ResponsePayload.IncomingText(objectMapper.readValue(payload, IncomingMessage::class.java))
+                ResponsePayload.IncomingText(
+                    objectMapper.readValue(
+                        payload,
+                        IncomingMessage::class.java
+                    )
+                )
             } catch (e: Exception) {
                 ResponsePayload.IncomingString(payload)
             }
