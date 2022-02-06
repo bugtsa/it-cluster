@@ -16,7 +16,7 @@
     <color name="buttonBackground">@color/blue</color>
 
     <color name="primaryTextColor">@color/fistash</color>
-    <color name="mainText">@color/dark_grey</color>
+    <color name="mainText">@color/marine_40</color>
     <color name="altText">@color/black</color>
     <color name="secondaryText">@color/white</color>
 
