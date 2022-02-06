@@ -8,58 +8,24 @@
             type="com.itcluster.mobile.feature.list.presentation.MainPageViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/mainBackgroundColor">
 
         <TextView
-            android:id="@+id/counter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.counter.ld}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/counter_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:onClick="@{() -> viewModel.onCounterButtonPressed()}"
-            android:text="Press me to count"
-            app:layout_constraintBottom_toTopOf="@id/levelYou"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/counter" />
-
-        <TextView
-            android:id="@+id/levelYou"
+            android:id="@+id/caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal_y_16"
             android:layout_marginTop="@dimen/spacing_bigger_56"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/font_x_medium_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/counter_btn"
-            app:layout_constraintBottom_toTopOf="@id/auth"
-            tool:text="@string/no_data" />
-
-        <TextView
-            android:id="@+id/auth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_normal_y_16"
-            android:layout_marginTop="@dimen/spacing_bigger_56"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/font_x_medium_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/levelYou"
+            android:text="@string/companies_selection"
+            app:layout_constraintBottom_toTopOf="@id/swipeContainer"
+            app:layout_constraintTop_toTopOf="parent"
             tool:text="@string/unsuccessful" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -72,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/newsListRv"
+                android:id="@+id/wallets"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -87,11 +53,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+            <com.itcluster.mobile.app.presentation.view.loading.LoadingView
+                android:id="@+id/loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="@dimen/default_loading_elevation" />
 
         </FrameLayout>
 

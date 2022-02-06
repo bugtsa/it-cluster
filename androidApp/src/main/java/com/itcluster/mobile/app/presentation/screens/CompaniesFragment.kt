@@ -76,7 +76,6 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
         setupViews()
     }
 
-
     private fun setupViews() {
         binding.companies.apply {
             layoutManager = LinearLayoutManager(requireContext())

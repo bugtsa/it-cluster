@@ -44,7 +44,7 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadingView.isVisible = false
+        loadingView.isVisible = true
         viewModel.auth.addCloseableObserver { loginState ->
             when (loginState) {
                 is LoginState.Authorized.UnAuthorized -> bindUnAuthorizedState()
@@ -76,7 +76,9 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
     }
 
     private fun bindUnAuthorizedState() {
+        loadingView.isVisible = false
         with(binding) {
+            scrollableView.isVisible = true
             etPassword.doOnTextChanged { _, _, _, _ ->
                 checkAuthButtonEnable()
             }

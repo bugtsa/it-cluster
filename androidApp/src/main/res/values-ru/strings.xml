@@ -7,6 +7,7 @@
 
     <string name="company_title_field">Название: %s</string>
     <string name="company_image_field">Картинка: %s</string>
+    <string name="wallet_amount_field">Количество: %s</string>
 
     <string name="submit_btn">Submit</string>
     <string name="token_hint">API token</string>

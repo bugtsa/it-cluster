@@ -16,7 +16,7 @@ data class WalletRes(
 	@SerialName("currency")
 	val currency: CurrencyRes,
 
-	val id: Int,
+	val id: Long,
 
 	@SerialName("is_default")
 	val isDefault: Int,
