@@ -1,6 +1,8 @@
 package com.itcluster.mobile.app.presentation.screens
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.*
@@ -32,6 +34,8 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
 
     private val loadingView: LoadingView by lazy { requireView().findViewById(R.id.loading) }
 
+    private val handler = Handler(Looper.getMainLooper())
+
     @Inject
     lateinit var factory: AuthFactory
 
@@ -43,6 +47,12 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
         loadingView.isVisible = false
         viewModel.auth.addCloseableObserver { loginState ->
             when (loginState) {
+                is LoginState.Authorized.UnAuthorized -> bindUnAuthorizedState()
+                is LoginState.Authorized.SuccessAuthorized -> {
+                    handler.post {
+                        (activity as MainActivity).navController.navigate(R.id.action_to_main)
+                    }
+                }
                 is LoginState.LoginFirst.Companies -> {
                     loadingView.isVisible = false
                     (activity as MainActivity).navController.navigate(R.id.action_to_companies)
@@ -63,6 +73,9 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
             }
         }
 
+    }
+
+    private fun bindUnAuthorizedState() {
         with(binding) {
             etPassword.doOnTextChanged { _, _, _, _ ->
                 checkAuthButtonEnable()

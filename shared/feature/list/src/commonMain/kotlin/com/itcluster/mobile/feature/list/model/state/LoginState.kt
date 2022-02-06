@@ -21,6 +21,13 @@ sealed class LoginState {
         ) : Error()
     }
 
+    sealed class Authorized : LoginState() {
+
+        object UnAuthorized: LoginState()
+
+        object SuccessAuthorized: LoginState()
+    }
+
     sealed class LoginFirst : LoginState() {
 
         object Companies: LoginFirst()

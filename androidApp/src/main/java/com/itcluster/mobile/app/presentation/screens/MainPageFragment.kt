@@ -28,7 +28,7 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
     lateinit var factory: MainPageFactory
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
-        createViewModelFactory { factory.createMainPageModel().apply { onCreated() } }
+        createViewModelFactory { factory.createMainPageModel() }
 
     private val progressBarView: ProgressBar by lazy { requireView().findViewById(R.id.progressBar) }
     private val authText: TextView by lazy { requireView().findViewById(R.id.auth) }
@@ -36,7 +36,7 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.isSuccess.addCloseableObserver { accessToken ->
-            authText.text = accessToken
+//            authText.text = accessToken
             progressBarView.isVisible = false
         }
     }
