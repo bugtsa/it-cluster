@@ -43,7 +43,7 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isSuccess.addCloseableObserver { state ->
+        viewModel.stateWallet.addCloseableObserver { state ->
             when(state) {
                 WalletState.NoState -> {
 

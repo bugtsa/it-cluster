@@ -27,15 +27,23 @@ data class WalletRes(
 
 	companion object {
 
+		private fun String.addCharAtIndex(char: Char, index: Int) =
+			StringBuilder(this).apply { insert(index, char) }.toString()
+
 		fun List<WalletRes>.toModel(): List<WalletModel> =
-			map {
+			map { res ->
+				val currency = res.currency.toModel()
+				val newAmount = takeIf { res.amount.length > currency.decimals }?.let {
+					val newString = res.amount.addCharAtIndex('.', res.amount.length - currency.decimals)
+					newString
+				} ?: res.amount
 				WalletModel(
-					it.amount,
-					it.name,
-					it.currency.toModel(),
-					it.id,
-					it.isDefault,
-					it.cardId ?: EMPTY_SEPARATOR
+					newAmount,
+					res.name,
+					currency,
+					res.id,
+					res.isDefault,
+					res.cardId ?: EMPTY_SEPARATOR
 				)
 			}
 	}
