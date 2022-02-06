@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/spacing_bigger_56"
             android:gravity="center"
             android:text="@string/companies_selection"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/mainText"
             android:textSize="@dimen/font_x_medium_16"
             app:layout_constraintBottom_toTopOf="@id/refresh_layout"
             app:layout_constraintTop_toTopOf="parent" />

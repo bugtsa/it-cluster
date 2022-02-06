@@ -6,8 +6,7 @@
     <string name="loading">Загрузка</string>
 
     <string name="company_title_field">Название: %s</string>
-    <string name="company_image_field">Картинка: %s</string>
-    <string name="wallet_amount_field">Количество: %s</string>
+    <string name="wallet_amount_field">Монет: %s</string>
 
     <string name="submit_btn">Submit</string>
     <string name="token_hint">API token</string>
@@ -47,5 +46,6 @@
     <string name="support_phone_number">+7(342)326-99-00</string>
 
     <string name="companies_selection">Selection one companies</string>
+    <string name="wallet_selection">Selection one wallet</string>
 
 </resources>

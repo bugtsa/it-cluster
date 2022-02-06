@@ -13,34 +13,33 @@
         xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:background="@color/mainBackgroundColor">
 
         <TextView
             android:id="@+id/caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_normal_y_16"
             android:layout_marginTop="@dimen/spacing_bigger_56"
-            android:textColor="@color/primaryTextColor"
+            android:gravity="center"
+            android:text="@string/wallet_selection"
+            android:textColor="@color/mainText"
             android:textSize="@dimen/font_x_medium_16"
-            android:text="@string/companies_selection"
             app:layout_constraintBottom_toTopOf="@id/swipeContainer"
-            app:layout_constraintTop_toTopOf="parent"
-            tool:text="@string/unsuccessful" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium_32"
+            app:layout_constraintTop_toBottomOf="@+id/caption">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/wallets"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

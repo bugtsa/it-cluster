@@ -14,23 +14,27 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/spacing_normal_y_16">
 
-        <TextView
-            android:id="@+id/image"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="@dimen/spacing_lager_48"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small_x_8"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/unknown_error"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/name"
+            />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small_x_8"
+            android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPhoto" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
