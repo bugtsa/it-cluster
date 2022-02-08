@@ -1,6 +1,6 @@
 package com.itcluster.mobile.domain.network.models.wallet
 
-import com.itcluster.mobile.domain.Constants.Companion.EMPTY_SEPARATOR
+import com.itcluster.mobile.domain.Constants.Companion.LONG_DEFAULT
 import com.itcluster.mobile.domain.network.models.wallet.CurrencyRes.Companion.toModel
 import com.itcluster.mobile.presentation.models.WalletModel
 import kotlinx.serialization.SerialName
@@ -22,7 +22,7 @@ data class WalletRes(
 	val isDefault: Int,
 
 	@SerialName("card_id")
-	val cardId: String?
+	val cardId: Long?
 ) {
 
 	companion object {
@@ -43,7 +43,7 @@ data class WalletRes(
 					currency,
 					res.id,
 					res.isDefault,
-					res.cardId ?: EMPTY_SEPARATOR
+					res.cardId ?: LONG_DEFAULT
 				)
 			}
 	}

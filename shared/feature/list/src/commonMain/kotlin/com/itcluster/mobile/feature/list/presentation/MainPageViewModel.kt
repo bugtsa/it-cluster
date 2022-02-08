@@ -31,8 +31,11 @@ class MainPageViewModel(
                     sdk.walletList(authToken)
                 }.onSuccess {
                     _stateWallet.value = WalletState.SuccessWallet(it)
-                }.onFailure {
-                    val dd = it
+                }.onFailure { throwable ->
+                    _stateWallet.value = WalletState.Error.Unknown(
+                        "Неизвестная ошибка. Обратитесь к разработчику",
+                        throwable
+                    )
                 }
             }
         }

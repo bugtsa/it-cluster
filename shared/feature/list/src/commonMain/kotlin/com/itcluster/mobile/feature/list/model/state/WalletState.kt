@@ -9,4 +9,12 @@ sealed class WalletState {
     class SuccessWallet(
         val wallet: List<WalletModel>
     ): WalletState()
+
+    sealed class Error : WalletState() {
+
+        class Unknown(
+            val message: String,
+            val throwable: Throwable
+        ) : Error()
+    }
 }
