@@ -6,5 +6,5 @@ class WalletModel(
     val currency: CurrencyModel,
     val id: Long,
     val isDefault: Int,
-    val cardId: String
+    val cardId: Long
 )

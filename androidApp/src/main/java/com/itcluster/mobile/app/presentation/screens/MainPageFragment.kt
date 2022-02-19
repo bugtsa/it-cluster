@@ -12,6 +12,7 @@ import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
 import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.databinding.FragmentMainPageBinding
+import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.WalletUiState
 import com.itcluster.mobile.app.models.WalletUiState.Companion.toState
@@ -44,13 +45,17 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.stateWallet.addCloseableObserver { state ->
-            when(state) {
+            when (state) {
                 WalletState.NoState -> {
 
                 }
                 is WalletState.SuccessWallet -> {
                     loadingView.isVisible = false
                     fillDataAdapter(state.wallet.map { it.toState() })
+                }
+                is WalletState.Error.Unknown -> {
+                    LogSniffer.addLog(TAG + state.throwable.toString())
+                    showToast(state.message)
                 }
             }
         }
@@ -85,6 +90,11 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
         message?.also {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
+    }
+
+    companion object {
+
+        private const val TAG = "MainPageFragment: "
     }
 
 }

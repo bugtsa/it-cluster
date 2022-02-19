@@ -68,7 +68,7 @@ class ItClusterApi {
         })
     }
 
-    suspend fun walletList(authToken: String): List<WalletRes> = httpClient.get{
+    suspend fun walletList(authToken: String): List<WalletRes> = httpClient.get {
         url("$IT_CLUSTER_ENDPOINT$WALLET_LIST")
         header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
     }
