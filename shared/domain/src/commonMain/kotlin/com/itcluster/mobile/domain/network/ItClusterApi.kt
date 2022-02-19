@@ -7,6 +7,7 @@ import com.itcluster.mobile.domain.network.api.errors.MessageErrorRes
 import com.itcluster.mobile.domain.network.models.auth.AuthRes
 import com.itcluster.mobile.domain.network.models.auth.CompaniesRes
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
+import com.itcluster.mobile.domain.network.models.wallet.TransactionListWalletRes
 import com.itcluster.mobile.domain.network.models.wallet.WalletRes
 import io.ktor.client.HttpClient
 import io.ktor.client.features.*
@@ -73,6 +74,19 @@ class ItClusterApi {
         header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
     }
 
+    suspend fun walletTransactions(
+        authToken: String,
+        billId: String,
+        page: String
+    ): TransactionListWalletRes = httpClient.post {
+        url("$IT_CLUSTER_ENDPOINT$WALLET_TRANSACTIONS")
+        header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
+        body = FormDataContent(Parameters.build {
+            append("bill_id", billId)
+            append("page", page)
+        })
+    }
+
     companion object {
         private const val IT_CLUSTER_ENDPOINT = "https://api.qualitylive.su/v1/"
 
@@ -80,6 +94,7 @@ class ItClusterApi {
         private const val AUTH_TOKEN = "auth/login"
 
         private const val WALLET_LIST = "wallet/list"
+        private const val WALLET_TRANSACTIONS = "transactions"
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val BEARER_PREFIX = "Bearer"
 

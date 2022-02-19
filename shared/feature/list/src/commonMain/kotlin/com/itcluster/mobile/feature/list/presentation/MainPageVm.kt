@@ -8,7 +8,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class MainPageViewModel(
+class MainPageVm(
     private val authStore: AuthStore
 ) : ViewModel() {
 

@@ -20,17 +20,17 @@ import com.itcluster.mobile.app.presentation.view.WalletAdapterDelegates
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
 import com.itcluster.mobile.feature.list.di.MainPageFactory
 import com.itcluster.mobile.feature.list.model.state.WalletState
-import com.itcluster.mobile.feature.list.presentation.MainPageViewModel
+import com.itcluster.mobile.feature.list.presentation.MainPageVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.livedata.addCloseableObserver
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel>() {
+class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageVm>() {
 
     override val layoutId: Int = R.layout.fragment_main_page
     override val viewModelVariableId: Int = BR.viewModel
-    override val viewModelClass = MainPageViewModel::class.java
+    override val viewModelClass = MainPageVm::class.java
 
     @Inject
     lateinit var factory: MainPageFactory

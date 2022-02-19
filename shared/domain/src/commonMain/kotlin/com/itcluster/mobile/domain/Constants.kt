@@ -7,5 +7,7 @@ class Constants {
         const val EMPTY_SEPARATOR = ""
 
         const val LONG_DEFAULT = 0L
+
+        const val INT_DEFAULT = 0
     }
 }

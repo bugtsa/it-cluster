@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.itcluster.mobile.feature.list.presentation.MainPageViewModel" />
+            type="com.itcluster.mobile.feature.list.presentation.MainPageVm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
