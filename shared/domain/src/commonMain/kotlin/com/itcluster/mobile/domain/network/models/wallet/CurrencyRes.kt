@@ -12,11 +12,13 @@ data class CurrencyRes(
 	val decimals: Int,
 
 	@SerialName("id")
-	val id: Int
+	val id: Int,
+
+	val code: String
 ) {
 
 	companion object {
 
-		fun CurrencyRes.toModel(): CurrencyModel = CurrencyModel(image, decimals, id)
+		fun CurrencyRes.toModel(): CurrencyModel = CurrencyModel(image, decimals, id, code)
 	}
 }

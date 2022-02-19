@@ -17,9 +17,10 @@ object WalletAdapterDelegates {
         ) {
             bind {
                 binding.apply {
+                    ivPhoto.networkLoadImage(item.image)
                     name.text = context.getString(R.string.company_title_field, item.name)
                     quantity.text = context.getString(R.string.wallet_amount_field, item.amount)
-                    ivPhoto.networkLoadImage(item.image)
+                    codeCurrency.text = item.codeCurrency
 
                     walletRoot.setSafeOnClickListener {
                         onWalletClick.invoke(item.id)

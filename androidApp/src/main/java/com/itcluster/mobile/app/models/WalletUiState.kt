@@ -10,6 +10,7 @@ class WalletUiState(
     val image: String,
     val name: String,
     val amount: String,
+    val codeCurrency: String,
     val id: Long
 ): RecyclerViewItem, Parcelable {
 
@@ -17,7 +18,7 @@ class WalletUiState(
 
         fun WalletModel.toState() : WalletUiState =
             WalletUiState(
-                currency.image, name, amount, id
+                currency.image, name, amount, currency.code, id
             )
     }
 
