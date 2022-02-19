@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Gym Mind</string>
+    <string name="app_name" translatable="false">Business Std</string>
 
     <string name="successful">Successful</string>
     <string name="unsuccessful">Unsuccessful</string>
