@@ -23,6 +23,7 @@
         <entry key="androidApp/src/main/res/layout/activity_config.xml" value="0.1" />
         <entry key="androidApp/src/main/res/layout/fragment_auth.xml" value="0.17753623188405798" />
         <entry key="androidApp/src/main/res/layout/fragment_main_page.xml" value="0.19746376811594202" />
+        <entry key="androidApp/src/main/res/layout/item_wallet.xml" value="0.33" />
         <entry key="androidApp/src/main/res/layout/tile_news.xml" value="0.19746376811594202" />
         <entry key="androidApp/src/main/res/layout/view_loading.xml" value="0.2" />
       </map>

@@ -108,13 +108,16 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="TextView.Small.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextView.Title">
         <item name="android:textSize">@dimen/default_text_title</item>
     </style>
 
-    <style name="TextView.Title.YachtBig">
+    <style name="TextView.Title.Bold">
         <item name="android:textStyle">bold</item>
-
     </style>
 
     <style name="TextView.Title.Big">
