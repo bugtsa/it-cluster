@@ -83,3 +83,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+/iosApp/iosApp.xcodeproj/xcuserdata/vpolkhovtsev.xcuserdatad/xcschemes/xcschememanagement.plist
+/iosApp/iosApp.xcodeproj/project.xcworkspace/xcuserdata/vpolkhovtsev.xcuserdatad/UserInterfaceState.xcuserstate
+/.idea/codeStyles/Project.xml
