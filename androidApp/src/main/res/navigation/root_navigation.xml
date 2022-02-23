@@ -19,17 +19,34 @@
             android:label="Companies Page"/>
 
         <fragment
-            android:id="@+id/nav_main"
-            android:name="com.itcluster.mobile.app.presentation.screens.MainPageFragment"
-            android:label="Main Page" />
+            android:id="@+id/nav_wallets"
+            android:name="com.itcluster.mobile.app.presentation.screens.WalletsFragment"
+            android:label="Wallets Page">
+
+            <action
+                android:id="@+id/action_to_transactions"
+                app:destination="@id/nav_transactions" />
+        </fragment>
+
+
+        <fragment
+            android:id="@+id/nav_transactions"
+            android:name="com.itcluster.mobile.app.presentation.screens.TransactionsFragment"
+            android:label="Transactions Page">
+
+            <argument
+                android:name="specs"
+                app:argType="com.itcluster.mobile.app.presentation.screens.TransactionsSpecs" />
+        </fragment>
 
         <action
             android:id="@+id/action_to_companies"
             app:destination="@id/nav_companies" />
 
         <action
-            android:id="@+id/action_to_main"
-            app:destination="@id/nav_main" />
+            android:id="@+id/action_to_wallets"
+            app:destination="@id/nav_wallets" />
+
 
     </navigation>
 

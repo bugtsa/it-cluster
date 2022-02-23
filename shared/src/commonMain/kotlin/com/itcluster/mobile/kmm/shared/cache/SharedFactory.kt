@@ -97,7 +97,7 @@ class SharedFactory(
 
     val companiesFactory = CompaniesFactory(companiesStore, authStore)
 
-    val mainPageFactory: MainPageFactory = MainPageFactory(authStore)
+    val mainPageFactory: WalletsFactory = WalletsFactory(authStore)
 
     val transactionFactory: TransactionsFactory = TransactionsFactory(authStore)
 

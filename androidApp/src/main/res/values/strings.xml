@@ -48,6 +48,7 @@
     <string name="support_phone_number">+7(342)326-99-00</string>
 
     <string name="companies_selection">Выберите компанию для входа</string>
+    <string name="transactions_description">Транзакции по кошельку</string>
     <string name="wallet_selection">Выберите кошелёк для просмотра</string>
 
 </resources>

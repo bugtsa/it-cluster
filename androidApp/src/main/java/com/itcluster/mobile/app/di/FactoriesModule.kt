@@ -29,7 +29,7 @@ object FactoriesModule {
         sharedFactory.companiesFactory
 
     @Provides
-    fun provideMainPageFactory(sharedFactory: SharedFactory): MainPageFactory =
+    fun provideMainPageFactory(sharedFactory: SharedFactory): WalletsFactory =
         sharedFactory.mainPageFactory
 
     @Provides

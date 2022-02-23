@@ -2,6 +2,7 @@ package com.itcluster.mobile.domain.network.models.wallet
 
 import com.itcluster.mobile.domain.Constants.Companion.LONG_DEFAULT
 import com.itcluster.mobile.domain.network.models.wallet.CurrencyRes.Companion.toModel
+import com.itcluster.mobile.domain.network.models.wallet.WalletExt.correctAmount
 import com.itcluster.mobile.presentation.models.WalletModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -27,18 +28,11 @@ data class WalletRes(
 
 	companion object {
 
-		private fun String.addCharAtIndex(char: Char, index: Int) =
-			StringBuilder(this).apply { insert(index, char) }.toString()
-
 		fun List<WalletRes>.toModel(): List<WalletModel> =
 			map { res ->
 				val currency = res.currency.toModel()
-				val newAmount = takeIf { res.amount.length > currency.decimals }?.let {
-					val newString = res.amount.addCharAtIndex('.', res.amount.length - currency.decimals)
-					newString
-				} ?: res.amount
 				WalletModel(
-					newAmount,
+					correctAmount(res.amount, currency.decimals),
 					res.name,
 					currency,
 					res.id,

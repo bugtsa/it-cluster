@@ -1,4 +1,4 @@
-package com.itcluster.mobile.app.presentation.view
+package com.itcluster.mobile.app.presentation.view.adapters
 
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.itcluster.mobile.app.R

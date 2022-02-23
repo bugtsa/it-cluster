@@ -3,12 +3,13 @@ package com.itcluster.mobile.feature.list.presentation
 import com.itcluster.mobile.domain.network.ItClusterSDK
 import com.itcluster.mobile.feature.list.model.AuthStore
 import com.itcluster.mobile.feature.list.model.state.WalletState
+import com.itcluster.mobile.feature.list.presentation.Constants.UNKNOWN_NETWORK_ERROR
 import dev.icerock.moko.mvvm.livedata.*
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class MainPageVm(
+class WalletsVm(
     private val authStore: AuthStore
 ) : ViewModel() {
 
@@ -33,7 +34,7 @@ class MainPageVm(
                     _stateWallet.value = WalletState.SuccessWallet(it)
                 }.onFailure { throwable ->
                     _stateWallet.value = WalletState.Error.Unknown(
-                        "Неизвестная ошибка. Обратитесь к разработчику",
+                        UNKNOWN_NETWORK_ERROR,
                         throwable
                     )
                 }

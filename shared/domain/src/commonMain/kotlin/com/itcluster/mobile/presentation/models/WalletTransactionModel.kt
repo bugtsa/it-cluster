@@ -5,7 +5,7 @@ class WalletTransactionModel(
 
     val datetime: Int,
 
-    val amount: Int,
+    val amount: String,
 
     val comment: String,
 

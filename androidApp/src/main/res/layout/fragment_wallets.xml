@@ -5,12 +5,11 @@
 
         <variable
             name="viewModel"
-            type="com.itcluster.mobile.feature.list.presentation.MainPageVm" />
+            type="com.itcluster.mobile.feature.list.presentation.WalletsVm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tool="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"

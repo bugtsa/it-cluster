@@ -3,7 +3,7 @@ package com.itcluster.mobile.feature.list.presentation
 import com.itcluster.mobile.domain.network.ItClusterSDK
 import com.itcluster.mobile.feature.list.model.AuthStore
 import com.itcluster.mobile.feature.list.model.state.TransactionsState
-import com.itcluster.mobile.feature.list.model.state.WalletState
+import com.itcluster.mobile.feature.list.presentation.Constants.UNKNOWN_NETWORK_ERROR
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -35,7 +35,7 @@ class TransactionsVm(
                     _stateTransactions.value = TransactionsState.SuccessTransactions(it.list)
                 }.onFailure { throwable ->
                     _stateTransactions.value = TransactionsState.Error.Unknown(
-                        "Неизвестная ошибка. Обратитесь к разработчику",
+                        UNKNOWN_NETWORK_ERROR,
                         throwable
                     )
                 }
