@@ -1,14 +1,14 @@
 package com.itcluster.mobile.feature.list.di
 
 import com.itcluster.mobile.feature.list.model.AuthStore
-import com.itcluster.mobile.feature.list.presentation.TransactionsVm
+import com.itcluster.mobile.feature.list.presentation.WalletDetailVm
 
-class TransactionsFactory(
+class WalletDetailFactory(
     private val authStore: AuthStore
 ) {
 
-    fun createTransactionsModel(billId: Long): TransactionsVm =
-        TransactionsVm(
+    fun createWalletDetailModel(billId: Long): WalletDetailVm =
+        WalletDetailVm(
             authStore = authStore
         ).apply {
             onCreated(billId)

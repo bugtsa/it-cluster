@@ -8,7 +8,8 @@ import com.itcluster.mobile.domain.network.models.auth.AuthRes
 import com.itcluster.mobile.domain.network.models.auth.CompaniesRes
 import com.itcluster.mobile.domain.network.models.auth.LoginReq
 import com.itcluster.mobile.domain.network.models.wallet.TransactionListWalletRes
-import com.itcluster.mobile.domain.network.models.wallet.WalletRes
+import com.itcluster.mobile.domain.network.models.wallet.WalletDetailParentRes
+import com.itcluster.mobile.domain.network.models.wallet.WalletTransactionRes
 import io.ktor.client.HttpClient
 import io.ktor.client.features.*
 import io.ktor.client.features.json.JsonFeature
@@ -69,22 +70,26 @@ class ItClusterApi {
         })
     }
 
-    suspend fun walletList(authToken: String): List<WalletRes> = httpClient.get {
+    suspend fun walletList(authToken: String): List<WalletTransactionRes> = httpClient.get {
         url("$IT_CLUSTER_ENDPOINT$WALLET_LIST")
         header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
+    }
+
+    suspend fun walletDetails(authToken: String, billId: String): WalletDetailParentRes = httpClient.get {
+        url("$IT_CLUSTER_ENDPOINT$WALLET_ITEM")
+        header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
+        parameter(BILL_ID_PARAM, billId)
     }
 
     suspend fun walletTransactions(
         authToken: String,
         billId: String,
         page: String
-    ): TransactionListWalletRes = httpClient.post {
+    ): TransactionListWalletRes = httpClient.get {
         url("$IT_CLUSTER_ENDPOINT$WALLET_TRANSACTIONS")
         header(AUTHORIZATION_HEADER, "$BEARER_PREFIX $authToken")
-        body = FormDataContent(Parameters.build {
-            append("bill_id", billId)
-            append("page", page)
-        })
+        parameter(BILL_ID_PARAM, billId)
+        parameter("page", page)
     }
 
     companion object {
@@ -94,12 +99,14 @@ class ItClusterApi {
         private const val AUTH_TOKEN = "auth/login"
 
         private const val WALLET_LIST = "wallet/list"
+        private const val WALLET_ITEM = "wallet/item"
         private const val WALLET_TRANSACTIONS = "transactions"
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val BEARER_PREFIX = "Bearer"
 
         private const val LOGIN_PARAM = "login"
         private const val PASSWORD_PARAM = "password"
+        private const val BILL_ID_PARAM = "bill_id"
     }
 }
 

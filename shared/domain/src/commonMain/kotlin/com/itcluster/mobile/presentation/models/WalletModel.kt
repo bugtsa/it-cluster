@@ -1,10 +1,27 @@
 package com.itcluster.mobile.presentation.models
 
-class WalletModel(
-    val amount: String,
-    val name: String,
-    val currency: CurrencyModel,
-    val id: Long,
-    val isDefault: Int,
-    val cardId: Long
-)
+sealed class WalletModel {
+
+    class WalletFullModel(
+        val id: Long,
+        val currency: CurrencyModel.CurrencyOfListModel,
+        val amount: String,
+        val name: String,
+        val isDefault: Int,
+        val cardId: Long
+    ) : WalletModel()
+
+    class WalletMediumModel(
+        val id: Long,
+        val currency: CurrencyModel.CurrencyOfBillModel,
+        val name: String,
+        val isDefault: Int,
+        val cardId: Long
+    ) : WalletModel()
+
+    class WalletShortModel(
+        val id: Long,
+        val currency: CurrencyModel.CurrencyOfDetailWalletModel,
+        val amount: String
+    ) : WalletModel()
+}

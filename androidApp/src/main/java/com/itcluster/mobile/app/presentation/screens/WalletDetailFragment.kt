@@ -16,9 +16,9 @@ import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.TransactionUIState
 import com.itcluster.mobile.app.models.TransactionUIState.Companion.toState
-import com.itcluster.mobile.feature.list.di.TransactionsFactory
-import com.itcluster.mobile.feature.list.model.state.TransactionsState.*
-import com.itcluster.mobile.feature.list.presentation.TransactionsVm
+import com.itcluster.mobile.feature.list.di.WalletDetailFactory
+import com.itcluster.mobile.feature.list.model.state.DetailWalletState.*
+import com.itcluster.mobile.feature.list.presentation.WalletDetailVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -26,29 +26,32 @@ import dev.icerock.moko.mvvm.livedata.addCloseableObserver
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TransactionsFragment : MvvmFragment<FragmentTransactionsBinding, TransactionsVm>() {
+class WalletDetailFragment : MvvmFragment<FragmentTransactionsBinding, WalletDetailVm>() {
 
     override val layoutId: Int = R.layout.fragment_transactions
     override val viewModelVariableId: Int = BR.viewModel
-    override val viewModelClass = TransactionsVm::class.java
+    override val viewModelClass = WalletDetailVm::class.java
 
     @Inject
-    lateinit var factory: TransactionsFactory
+    lateinit var factory: WalletDetailFactory
 
-    private val args: TransactionsFragmentArgs by navArgs()
+    private val args: WalletDetailFragmentArgs by navArgs()
     private val specs by lazy { args.specs }
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
-        createViewModelFactory { factory.createTransactionsModel(specs.billId) }
+        createViewModelFactory { factory.createWalletDetailModel(specs.billId) }
 
     private val adapter by lazy { createAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.stateTransactions.addCloseableObserver { state ->
+        viewModel.stateDetailWallet.addCloseableObserver { state ->
             when (state) {
                 NoState -> {
 
+                }
+                is SuccessDetail -> {
+                    val dd = state.details
                 }
                 is SuccessTransactions -> {
                     binding.loading.isVisible = false
@@ -67,7 +70,7 @@ class TransactionsFragment : MvvmFragment<FragmentTransactionsBinding, Transacti
     private fun setupViews() {
         binding.transactions.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@TransactionsFragment.adapter
+            adapter = this@WalletDetailFragment.adapter
         }
     }
 
@@ -98,8 +101,8 @@ class TransactionsFragment : MvvmFragment<FragmentTransactionsBinding, Transacti
 
         fun newInstance(
            billId: Long
-        ): TransactionsFragment =
-            TransactionsFragment().applyArguments(
+        ): WalletDetailFragment =
+            WalletDetailFragment().applyArguments(
                 Bundle().apply {
                     putLong(BILL_ID_ARG, billId)
                 }

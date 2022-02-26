@@ -99,7 +99,7 @@ class SharedFactory(
 
     val mainPageFactory: WalletsFactory = WalletsFactory(authStore)
 
-    val transactionFactory: TransactionsFactory = TransactionsFactory(authStore)
+    val transactionFactory: WalletDetailFactory = WalletDetailFactory(authStore)
 
     val newsFactory: ListFactory<News> = ListFactory(
         listSource = object : ListSource<News> {
