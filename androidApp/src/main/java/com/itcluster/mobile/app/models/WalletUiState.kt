@@ -16,7 +16,7 @@ class WalletUiState(
 
     companion object {
 
-        fun WalletModel.toState() : WalletUiState =
+        fun WalletModel.WalletFullModel.toState() : WalletUiState =
             WalletUiState(
                 currency.image, name, amount, currency.code, id
             )

@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CurrencyRes(
+data class CurrencyTransactionRes(
 
 	val image: String,
 
@@ -19,6 +19,6 @@ data class CurrencyRes(
 
 	companion object {
 
-		fun CurrencyRes.toModel(): CurrencyModel = CurrencyModel(image, decimals, id, code)
+		fun CurrencyTransactionRes.toModel(): CurrencyModel = CurrencyModel.CurrencyOfListModel(image, decimals, id, code)
 	}
 }

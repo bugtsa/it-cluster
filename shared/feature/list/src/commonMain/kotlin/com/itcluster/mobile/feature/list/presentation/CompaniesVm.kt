@@ -7,6 +7,7 @@ import com.itcluster.mobile.domain.network.models.auth.LoginReq
 import com.itcluster.mobile.feature.list.model.AuthStore
 import com.itcluster.mobile.feature.list.model.CompaniesStore
 import com.itcluster.mobile.feature.list.model.state.LoginState
+import com.itcluster.mobile.feature.list.presentation.Constants.UNKNOWN_NETWORK_ERROR
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -55,7 +56,7 @@ class CompaniesVm(
                             is AuthErrorDto.Password -> LoginState.Error.Password(typeMessage.message)
                         }
                     } ?: LoginState.Error.Unknown(
-                        "Неизвестная ошибка. Обратитесь к разработчику",
+                        UNKNOWN_NETWORK_ERROR,
                         throwable
                     )
             }

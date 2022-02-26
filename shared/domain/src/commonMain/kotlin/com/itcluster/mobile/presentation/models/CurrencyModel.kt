@@ -1,8 +1,25 @@
 package com.itcluster.mobile.presentation.models
 
-class CurrencyModel(
-    val image: String,
-    val decimals: Int,
-    val id: Int,
-    val code: String
-)
+sealed class CurrencyModel(
+    val id: Int
+) {
+
+    class CurrencyOfListModel(
+        val image: String,
+        val decimals: Int,
+        idTran: Int,
+        val code: String
+    ) : CurrencyModel(idTran)
+
+    class CurrencyOfBillModel(
+        val image: String,
+        idBill: Int,
+        val code: String
+    ) : CurrencyModel(idBill)
+
+    class CurrencyOfDetailWalletModel(
+        val decimals: Int,
+        val idWallet: Int
+    ) : CurrencyModel(idWallet)
+}
+

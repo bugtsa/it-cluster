@@ -18,6 +18,7 @@ import com.itcluster.mobile.app.presentation.view.MainActivity
 import com.itcluster.mobile.app.presentation.view.loading.LoadingView
 import com.itcluster.mobile.feature.list.di.AuthFactory
 import com.itcluster.mobile.feature.list.model.state.LoginState
+import com.itcluster.mobile.feature.list.model.state.LoginState.*
 import com.itcluster.mobile.feature.list.presentation.AuthVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
@@ -47,22 +48,22 @@ class AuthFragment : MvvmFragment<FragmentAuthBinding, AuthVm>() {
         loadingView.isVisible = true
         viewModel.auth.addCloseableObserver { loginState ->
             when (loginState) {
-                is LoginState.Authorized.UnAuthorized -> bindUnAuthorizedState()
-                is LoginState.Authorized.SuccessAuthorized -> {
+                is Authorized.UnAuthorized -> bindUnAuthorizedState()
+                is Authorized.SuccessAuthorized -> {
                     handler.post {
-                        (activity as MainActivity).navController.navigate(R.id.action_to_main)
+                        (activity as MainActivity).navController.navigate(R.id.action_to_wallets)
                     }
                 }
-                is LoginState.LoginFirst.Companies -> {
+                is LoginFirst.Companies -> {
                     loadingView.isVisible = false
                     (activity as MainActivity).navController.navigate(R.id.action_to_companies)
                 }
-                is LoginState.Error -> {
+                is Error -> {
                     loadingView.isVisible = false
                     when (loginState) {
-                        is LoginState.Error.Login -> binding.tilLogin.error = loginState.message
-                        is LoginState.Error.Password -> binding.tilPassword.error = loginState.message
-                        is LoginState.Error.Unknown -> {
+                        is Error.Login -> binding.tilLogin.error = loginState.message
+                        is Error.Password -> binding.tilPassword.error = loginState.message
+                        is Error.Unknown -> {
                             LogSniffer.addLog(TAG + loginState.throwable.toString())
                             showToast(loginState.message)
                         }

@@ -11,49 +11,45 @@ import com.itcluster.mobile.app.R
 import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
 import com.itcluster.mobile.app.BR
-import com.itcluster.mobile.app.databinding.FragmentMainPageBinding
+import com.itcluster.mobile.app.databinding.FragmentWalletsBinding
 import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.WalletUiState
 import com.itcluster.mobile.app.models.WalletUiState.Companion.toState
-import com.itcluster.mobile.app.presentation.view.WalletAdapterDelegates
-import com.itcluster.mobile.app.presentation.view.loading.LoadingView
-import com.itcluster.mobile.feature.list.di.MainPageFactory
-import com.itcluster.mobile.feature.list.model.state.WalletState
-import com.itcluster.mobile.feature.list.presentation.MainPageViewModel
+import com.itcluster.mobile.app.presentation.view.MainActivity
+import com.itcluster.mobile.app.presentation.view.adapters.WalletAdapterDelegates
+import com.itcluster.mobile.feature.list.di.WalletsFactory
+import com.itcluster.mobile.feature.list.model.state.WalletState.*
+import com.itcluster.mobile.feature.list.presentation.WalletsVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.livedata.addCloseableObserver
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel>() {
+class WalletsFragment : MvvmFragment<FragmentWalletsBinding, WalletsVm>() {
 
-    override val layoutId: Int = R.layout.fragment_main_page
+    override val layoutId: Int = R.layout.fragment_wallets
     override val viewModelVariableId: Int = BR.viewModel
-    override val viewModelClass = MainPageViewModel::class.java
+    override val viewModelClass = WalletsVm::class.java
 
     @Inject
-    lateinit var factory: MainPageFactory
+    lateinit var factory: WalletsFactory
 
     private val adapter by lazy { createAdapter() }
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
-        createViewModelFactory { factory.createMainPageModel() }
-
-    private val loadingView: LoadingView by lazy { requireView().findViewById(R.id.loading) }
+        createViewModelFactory { factory.createWalletsModel() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.stateWallet.addCloseableObserver { state ->
             when (state) {
-                WalletState.NoState -> {
-
-                }
-                is WalletState.SuccessWallet -> {
-                    loadingView.isVisible = false
+                NoState -> {}
+                is SuccessWallet -> {
+                    binding.loading.isVisible = false
                     fillDataAdapter(state.wallet.map { it.toState() })
                 }
-                is WalletState.Error.Unknown -> {
+                is Error.Unknown -> {
                     LogSniffer.addLog(TAG + state.throwable.toString())
                     showToast(state.message)
                 }
@@ -65,19 +61,20 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
     private fun setupViews() {
         binding.wallets.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@MainPageFragment.adapter
+            adapter = this@WalletsFragment.adapter
         }
     }
 
     private fun createAdapter() = BaseDelegationAdapter(
         WalletAdapterDelegates.walletAdapterDelegate(
-            ::navToMainPage
+            ::navToTransactionsPage
         )
     )
 
-    private fun navToMainPage(walletId: Long) {
-        loadingView.isVisible = true
-//        viewModel.authTokenRequest(companyId)
+    private fun navToTransactionsPage(billId: Long) {
+        binding.loading.isVisible = true
+        val action = WalletsFragmentDirections.actionToTransactions(TransactionsSpecs(billId))
+        (activity as MainActivity).navController.navigate(action)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -94,7 +91,7 @@ class MainPageFragment : MvvmFragment<FragmentMainPageBinding, MainPageViewModel
 
     companion object {
 
-        private const val TAG = "MainPageFragment: "
+        private const val TAG = "WalletsFragment: "
     }
 
 }

@@ -7,7 +7,7 @@ sealed class WalletState {
     object NoState: WalletState()
 
     class SuccessWallet(
-        val wallet: List<WalletModel>
+        val wallet: List<WalletModel.WalletFullModel>
     ): WalletState()
 
     sealed class Error : WalletState() {

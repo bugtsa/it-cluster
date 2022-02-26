@@ -14,11 +14,10 @@ import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.CompanyState
 import com.itcluster.mobile.app.models.CompanyState.Companion.toState
-import com.itcluster.mobile.app.presentation.view.CompanyAdapterDelegates
 import com.itcluster.mobile.app.presentation.view.MainActivity
-import com.itcluster.mobile.app.presentation.view.loading.LoadingView
+import com.itcluster.mobile.app.presentation.view.adapters.CompanyAdapterDelegates
 import com.itcluster.mobile.feature.list.di.CompaniesFactory
-import com.itcluster.mobile.feature.list.model.state.LoginState
+import com.itcluster.mobile.feature.list.model.state.LoginState.*
 import com.itcluster.mobile.feature.list.presentation.CompaniesVm
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
@@ -33,8 +32,6 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
     override val viewModelVariableId: Int = BR.viewModel
     override val viewModelClass = CompaniesVm::class.java
 
-    private val loadingView: LoadingView by lazy { requireView().findViewById(R.id.loading) }
-
     @Inject
     lateinit var factory: CompaniesFactory
 
@@ -45,21 +42,21 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadingView.isVisible = false
+        binding.loading.isVisible = false
         viewModel.state.addCloseableObserver { companiesState ->
             when (companiesState) {
-                is LoginState.Companies.Auth -> {
-                    loadingView.isVisible = false
-                    (activity as MainActivity).navController.navigate(R.id.action_to_main)
+                is Companies.Auth -> {
+                    binding.loading.isVisible = false
+                    (activity as MainActivity).navController.navigate(R.id.action_to_wallets)
                 }
-                is LoginState.Companies.Data -> {
-                    loadingView.isVisible = false
+                is Companies.Data -> {
+                    binding.loading.isVisible = false
                     fillDataAdapter(companiesState.companies.map { it.toState() })
                 }
-                is LoginState.Error -> {
-                    loadingView.isVisible = false
+                is Error -> {
+                    binding.loading.isVisible = false
                     when (companiesState) {
-                        is LoginState.Error.Unknown -> {
+                        is Error.Unknown -> {
                             LogSniffer.addLog(TAG + companiesState.throwable.toString())
                             showToast(companiesState.message)
                         }
@@ -85,12 +82,12 @@ class CompaniesFragment : MvvmFragment<FragmentCompaniesBinding, CompaniesVm>() 
 
     private fun createAdapter() = BaseDelegationAdapter(
         CompanyAdapterDelegates.companyAdapterDelegate(
-            ::navToMainPage
+            ::navToWalletsPage
         )
     )
 
-    private fun navToMainPage(companyId: Long) {
-        loadingView.isVisible = true
+    private fun navToWalletsPage(companyId: Long) {
+        binding.loading.isVisible = true
         viewModel.authTokenRequest(companyId)
     }
 

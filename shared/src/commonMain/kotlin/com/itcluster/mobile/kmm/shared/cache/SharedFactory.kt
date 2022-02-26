@@ -14,10 +14,7 @@ import com.itcluster.mobile.domain.entity.News
 import com.itcluster.mobile.feature.config.di.ConfigFactory
 import com.itcluster.mobile.feature.config.model.ConfigStore
 import com.itcluster.mobile.feature.config.presentation.ConfigViewModel
-import com.itcluster.mobile.feature.list.di.AuthFactory
-import com.itcluster.mobile.feature.list.di.CompaniesFactory
-import com.itcluster.mobile.feature.list.di.ListFactory
-import com.itcluster.mobile.feature.list.di.MainPageFactory
+import com.itcluster.mobile.feature.list.di.*
 import com.itcluster.mobile.feature.list.model.AuthStore
 import com.itcluster.mobile.feature.list.model.CompaniesStore
 import com.itcluster.mobile.feature.list.model.ListSource
@@ -100,9 +97,9 @@ class SharedFactory(
 
     val companiesFactory = CompaniesFactory(companiesStore, authStore)
 
-    val mainPageFactory: MainPageFactory = MainPageFactory(
-        authStore = authStore
-    )
+    val mainPageFactory: WalletsFactory = WalletsFactory(authStore)
+
+    val transactionFactory: WalletDetailFactory = WalletDetailFactory(authStore)
 
     val newsFactory: ListFactory<News> = ListFactory(
         listSource = object : ListSource<News> {
