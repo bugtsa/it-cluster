@@ -100,7 +100,7 @@ class ItClusterApi {
 
         private const val WALLET_LIST = "wallet/list"
         private const val WALLET_ITEM = "wallet/item"
-        private const val WALLET_TRANSACTIONS = "transactions"
+        private const val WALLET_TRANSACTIONS = "wallet/transactions"
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val BEARER_PREFIX = "Bearer"
 

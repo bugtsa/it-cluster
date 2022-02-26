@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -8,6 +9,54 @@
         android:background="@color/mainBackgroundColor"
         android:clipToPadding="false"
         android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="@dimen/spacing_lager_z_36"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_small_x_8"
+            android:layout_marginEnd="@dimen/spacing_small_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/name"
+            app:layout_constraintTop_toTopOf="@id/name"
+            app:layout_constraintBottom_toBottomOf="@id/quantity"
+            android:contentDescription="@string/unknown_error"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small_x_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivPhoto"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/quantity"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small_x_8"
+            android:layout_marginEnd="@dimen/spacing_small_x_8"
+            android:layout_marginBottom="@dimen/spacing_small_x_8"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintEnd_toStartOf="@id/codeCurrency"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@id/refresh_layout"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@string/menu_exit"/>
+
+        <TextView
+            android:id="@+id/codeCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small_x_8"
+            style="@style/TextView.Small.Bold"
+            app:layout_constraintTop_toTopOf="@+id/quantity"
+            app:layout_constraintStart_toEndOf="@id/quantity"
+            app:layout_constraintBottom_toBottomOf="@+id/quantity"/>
 
         <TextView
             android:id="@+id/companies_selection"
@@ -18,15 +67,17 @@
             android:text="@string/transactions_description"
             android:textColor="@color/mainText"
             android:textSize="@dimen/font_x_medium_16"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@id/refresh_layout"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/quantity" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal_y_16"
-            app:layout_constraintTop_toBottomOf="@+id/companies_selection">
+            app:layout_constraintTop_toBottomOf="@+id/companies_selection"
+            app:layout_constraintVertical_chainStyle="packed">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transactions"

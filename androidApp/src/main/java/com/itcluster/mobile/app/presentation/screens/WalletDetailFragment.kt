@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itcluster.mobile.app.BR
 import com.itcluster.mobile.app.R
 import com.itcluster.mobile.app.databinding.FragmentTransactionsBinding
-import com.itcluster.mobile.app.ext.applyArguments
+import com.itcluster.mobile.app.ext.glide.networkLoadImage
 import com.itcluster.mobile.app.ext.log.LogSniffer
 import com.itcluster.mobile.app.ext.recycler.BaseDelegationAdapter
 import com.itcluster.mobile.app.models.TransactionUIState
 import com.itcluster.mobile.app.models.TransactionUIState.Companion.toState
+import com.itcluster.mobile.app.presentation.view.adapters.TransactionAdapterDelegates
 import com.itcluster.mobile.feature.list.di.WalletDetailFactory
 import com.itcluster.mobile.feature.list.model.state.DetailWalletState.*
 import com.itcluster.mobile.feature.list.presentation.WalletDetailVm
+import com.itcluster.mobile.presentation.models.WalletItemModel
 import dagger.hilt.android.AndroidEntryPoint
 import dev.icerock.moko.mvvm.MvvmFragment
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -51,7 +53,8 @@ class WalletDetailFragment : MvvmFragment<FragmentTransactionsBinding, WalletDet
 
                 }
                 is SuccessDetail -> {
-                    val dd = state.details
+                    binding.loading.isVisible = false
+                    bindDetails(state.details)
                 }
                 is SuccessTransactions -> {
                     binding.loading.isVisible = false
@@ -67,6 +70,15 @@ class WalletDetailFragment : MvvmFragment<FragmentTransactionsBinding, WalletDet
         setupViews()
     }
 
+    private fun bindDetails(details: WalletItemModel) {
+        binding.apply {
+            ivPhoto.networkLoadImage(details.bill.currency.image)
+            name.text = requireContext().getString(R.string.company_title_field, details.bill.name)
+            quantity.text = requireContext().getString(R.string.wallet_amount_field, details.wallet.amount)
+            codeCurrency.text = details.bill.currency.code
+        }
+    }
+
     private fun setupViews() {
         binding.transactions.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -75,15 +87,12 @@ class WalletDetailFragment : MvvmFragment<FragmentTransactionsBinding, WalletDet
     }
 
     private fun createAdapter() = BaseDelegationAdapter(
-//        WalletAdapterDelegates.walletAdapterDelegate(
-//            ::navToTransactionsPage
-//        )
+        TransactionAdapterDelegates.transactionAdapterDelegate(
+            ::navToTransactionsPage
+        )
     )
 
-    private fun navToTransactionsPage(billId: Long) {
-//        loadingView.isVisible = true
-//        viewModel.authTokenRequest(companyId)
-    }
+    private fun navToTransactionsPage(billId: Long) {}
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fillDataAdapter(transactions: List<TransactionUIState>) {
@@ -99,17 +108,7 @@ class WalletDetailFragment : MvvmFragment<FragmentTransactionsBinding, WalletDet
 
     companion object {
 
-        fun newInstance(
-           billId: Long
-        ): WalletDetailFragment =
-            WalletDetailFragment().applyArguments(
-                Bundle().apply {
-                    putLong(BILL_ID_ARG, billId)
-                }
-            )
-
         private const val TAG = "TransactionsFragment: "
-        private const val BILL_ID_ARG = "BILL_ID_ARG"
     }
 
 }

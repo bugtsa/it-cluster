@@ -9,18 +9,19 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TransactionWalletRes(
 
+	@SerialName("transaction_id")
 	val transactionId: Int?,
 
-	val datetime: Int,
+	val datetime: Long,
 
 	val amount: Int,
 
 	@SerialName("amount_decimals")
-	val amountDecimals: Int,
+	val amountDecimals: Double,
 
 	val comment: String,
 
-	val id: Int,
+	val id: Long,
 
 	val type: Int,
 
@@ -32,7 +33,7 @@ data class TransactionWalletRes(
 		fun TransactionWalletRes.toModel() = WalletTransactionModel(
 			this.transactionId ?: INT_DEFAULT,
 			this.datetime,
-			correctAmount(this.amount.toString(), this.amountDecimals),
+			this.amountDecimals.toString(),
 			this.comment,
 			this.id,
 			this.type,

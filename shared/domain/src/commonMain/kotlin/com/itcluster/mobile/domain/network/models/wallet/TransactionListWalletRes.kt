@@ -3,14 +3,17 @@ package com.itcluster.mobile.domain.network.models.wallet
 import com.itcluster.mobile.domain.network.models.wallet.PagesRes.Companion.toModel
 import com.itcluster.mobile.domain.network.models.wallet.TransactionWalletRes.Companion.toModel
 import com.itcluster.mobile.presentation.models.WalletTransactionsModel
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TransactionListWalletRes(
 
-    val pages: PagesRes,
+    @SerialName("list")
+    val list: List<TransactionWalletRes>,
 
-    val list: List<TransactionWalletRes>
+    @SerialName("pages")
+    val pages: PagesRes
 
 ) {
 

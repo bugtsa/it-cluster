@@ -7,13 +7,13 @@ sealed class CurrencyModel(
     class CurrencyOfListModel(
         val image: String,
         val decimals: Int,
-        val idTran: Int,
+        idTran: Int,
         val code: String
     ) : CurrencyModel(idTran)
 
     class CurrencyOfBillModel(
         val image: String,
-        val idBill: Int,
+        idBill: Int,
         val code: String
     ) : CurrencyModel(idBill)
 
