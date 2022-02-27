@@ -5,14 +5,16 @@ struct ContentView: View {
   @ObservedObject private(set) var viewModel: ViewModel
 
     var body: some View {
-        NavigationView {
+        Text("Hello, Buga")
+            .padding()
+//        NavigationView {
 //             listView()
 //             .navigationBarTitle("SpaceX Launches")
 //             .navigationBarItems(trailing:
 //                 Button("Reload") {
 //                     self.viewModel.loadLaunches(forceReload: true)
 //             })
-        }
+//        }
     }
 
 //     private func listView() -> AnyView {
@@ -38,7 +40,7 @@ extension ContentView {
     }
 
     class ViewModel: ObservableObject {
-//         let sdk: SpaceXSDK
+//         let sdk: ItClusterSDK
 //         @Published var launches = LoadableLaunches.loading
 //
 //         init(sdk: SpaceXSDK) {
