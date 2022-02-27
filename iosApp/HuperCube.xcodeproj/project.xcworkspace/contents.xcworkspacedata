@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/vpolkhovtsev/dev/bugtsa/cluster/iosApp/HuperCube.xcodeproj">
    </FileRef>
 </Workspace>
