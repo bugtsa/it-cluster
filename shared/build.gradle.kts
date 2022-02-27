@@ -18,9 +18,9 @@ kotlin {
 
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
         if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm32
+            ::iosArm64
         else
-            ::iosX64
+            ::iosArm32
 
     iosTarget("ios") {
         binaries {
