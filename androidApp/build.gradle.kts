@@ -14,7 +14,7 @@ dependencies {
     val lifecycleVersion = "2.3.1"
     val fragmentsKtxVersion = "1.3.4"
     val adapterDelegatesVersion = "4.3.0"
-    val kotlinVersion = "1.5.31"
+    val kotlinVersion: String by project
     val glideVersion = "4.11.0"
 
 
@@ -97,7 +97,7 @@ kapt {
         // These options are normally set automatically via the Hilt Gradle plugin, but we
         // set them manually to workaround a bug in the Kotlin 1.5.20
         option("-Adagger.fastInit=ENABLED")
-        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+//        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
     }
 }
 

@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
 
-    val kotlinVersion = "1.5.21"
+    val kotlinVersion: String by project
     val navigationVersion: String by project
     val sqlDelightVersion: String by project
 
