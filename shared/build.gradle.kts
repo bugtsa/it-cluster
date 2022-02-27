@@ -16,17 +16,12 @@ version = "1.0-SNAPSHOT"
 kotlin {
     android()
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosArm32
-
-    iosTarget("ios") {
-        binaries {
-            framework {
-                baseName = "shared"
-            }
+    listOf(
+        iosX64(),
+        iosArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "shared"
         }
     }
 

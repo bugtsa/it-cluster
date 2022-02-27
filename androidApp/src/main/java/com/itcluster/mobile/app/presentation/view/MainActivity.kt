@@ -22,7 +22,6 @@ import com.itcluster.mobile.app.models.IncomingMessage
 import com.itcluster.mobile.app.models.ResponsePayload
 import com.itcluster.mobile.app.presentation.view.base.BaseActivity
 import com.itcluster.mobile.kmm.shared.GymMindSDK
-import com.itcluster.mobile.kmm.shared.cache.DatabaseDriverFactory
 import com.itcluster.mobile.kmm.shared.network.AppSocket
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.itcluster.mobile.app.ext.log.LogSniffer
@@ -42,7 +41,6 @@ class MainActivity : BaseActivity() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private val sdk = GymMindSDK(
-        DatabaseDriverFactory(this),
         AppSocket(SOCKET_ENDPOINT)
     )
 
