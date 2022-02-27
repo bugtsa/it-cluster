@@ -18,7 +18,7 @@ kotlin {
 
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
         if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
+            ::iosArm32
         else
             ::iosX64
 
@@ -85,7 +85,13 @@ kotlin {
                 implementation("junit:junit:4.13.2")
             }
         }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
         val iosMain by getting {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
                 implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
